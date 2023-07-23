@@ -1,0 +1,23 @@
+{% extends "layoutBidder.html" %}
+{% set active_page = "changeRole" %}
+
+{% block body %}
+
+<body>
+    <p>Select your role:</p>
+    <form action="{{ url_for('changeRole') }}" method="post">
+        <input type="radio" name="role" id="bidder" value="bidders" checked>
+        <label for="bidder">Bidder</label>
+        <input type="radio" name="role" id="seller" value="sellers">
+        <label for="seller">Seller</label>
+        <input type="radio" name="role" id="helpdesk" value="helpdeskUsers">
+        <label for="helpdesk">HelpDesk Staff</label><br><br>
+        <input type="submit" value="Submit">
+    </form>
+    {% if error %}
+    <p style="color: red">You don't have access to the role! Please try a different role.</p>
+    {% endif %}
+</body>
+
+
+{% endblock %}

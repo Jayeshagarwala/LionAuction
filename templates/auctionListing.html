@@ -1,0 +1,41 @@
+{% extends "layoutBidder.html" %}
+
+{% block body %}
+<h1>{{listing[3]}} </h1>
+<h2>Product Information: </h2>
+<p>Product Name: {{listing[4]}} </p>
+<p>Product Description: {{listing[5]}} </p>
+<p>Quantity: {{listing[6]}} </p>
+<p>Current Highest Bid: ${{highestBid}}</p>
+<p>Remaining Bid: {{remainingBid}} </p>
+
+<h2>Seller Information: </h2>
+<p>Email: {{listing[0]}} </p>
+
+<h2>Place a bid:</h2>
+{% if biddingOpen %}
+     <form action="{{ url_for('auctionListing', id=listing[1], seller=listing[0]) }}" method="post">
+        <input type="text" name="bidAmount" placeholder="Enter the bid amount" required><br><br>
+        <input type="submit" value="Place Bid">
+</form>
+{% else %}
+     <p style="color: red"> The bidding is closed for the item. </p>
+{% endif %}
+
+
+{% if bidPlaced %}
+<p style="color: red">Thanks for placing the bid!</p>
+{% endif %}
+
+{% if eligibleToBid == False %}
+<p style="color: red">You can't bid on your own listing!</p>
+{% endif %}
+
+{% if error %}
+    <p style="color: red">The bid amount must be greater than highest bid!</p>
+{% endif %}
+
+{% if canBid == False %}
+    <p style="color: red">You were the most recent bid! Please wait for someone to place a counter bid first.</p>
+{% endif %}
+{% endblock %}

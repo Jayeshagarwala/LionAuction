@@ -1,0 +1,37 @@
+{% extends "layoutBidder.html" %}
+{% set active_page = "profile" %}
+{% block body %}
+
+<h2>Your Profile:</h2>
+<form action="{{ url_for('profileBidder')}}" method="post">
+        <label for="email">Email:</label>
+        <input type="text" id ="email" name="email" value="{{user[0]}}" readonly> <br><br>
+        <label for="firstName">First Name:</label>
+        <input type="text" id = "firstName" name="firstName" value="{{bidder[1]}}" required><br><br>
+
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" name="lastName" value="{{bidder[2]}}" required><br><br>
+        <label for="age">Age:</label>
+        <input type="text" id="age" name="age" value="{{bidder[4]}}" required><br><br>
+        <label for="gender">Gender:</label>
+        <input type="text" id="gender" name="gender" value="{{bidder[3]}}" required><br><br>
+        <label for="major">Major:</label>
+        <input type="text" id="major" name="major" value="{{bidder[6]}}" required><br><br>
+        <label for="streetNum">Street Number:</label>
+        <input type="text" id="streetNum" name="streetNum" value="{{address[2]}}" required><br><br>
+        <label for="streetName">Street Name:</label>
+        <input type="text" id="streetName" name="streetName" value="{{address[3]}}" required><br><br>
+        <label for="city">City:</label>
+        <input type="text" id="city" name="city" value="{{zipcode[1]}}" required><br><br>
+        <label for="state">State:</label>
+        <input type="text" id="state" name="state" value="{{zipcode[2]}}" required><br><br>
+        <label for="zipcode">Zipcode:</label>
+        <input type="text" id="zipcode" name="zipcode" value="{{zipcode[0]}}" required><br><br>
+        <input type="submit" name="submit" value="Make Changes">
+</form>
+
+{% if madeChanges %}
+<p style="color: red">Changes Made successfully!</p>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "layoutSeller.html" %}
+{% set active_page = "addListing" %}
+{% block body %}
+<h2>Enter Listing Details:</h2>
+    <form action="{{ url_for('addListing') }}" method="post">
+
+        <label for="auctionTitle">Auction Title:</label>
+        <input type="text" id ="auctionTitle" name="auctionTitle" placeholder="Auction Title" required> <br><br>
+        <label for="productName">Product Name:</label>
+        <input type="text" id ="productName" name="productName" placeholder="Product Name" required><br><br>
+        <label for="productDescription">Product Description:</label>
+        <input type="text" id = "productDescription" name="productDescription" placeholder="Product Description" required><br><br>
+
+        <label for="categories">Choose a product category:</label>
+        <select id="categories" name="categories">
+            {%for category in categoriesSet %}
+            <option value="{{category}}">{{category}}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+        <label for="quantity">Quantity:</label>
+        <input type="text" id="quantity" name="quantity" placeholder="Quantity" required><br><br>
+        <label for="reservePrice">Reserve Price:</label>
+        <input type="text" id="reservePrice" name="reservePrice" placeholder="Reserve Price" required><br><br>
+        <label for="maxBids">Max Bids:</label>
+        <input type="text" id="maxBids" name="maxBids" placeholder="Max Bids" required><br><br>
+
+        <input type="submit" name="submit" value="Publish Listing">
+    </form>
+{% if error %}
+<p style="color: red">You already have an active listing!</p>
+{% endif %}
+{% endblock %}

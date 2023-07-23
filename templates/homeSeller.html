@@ -1,0 +1,53 @@
+{% extends "layoutSeller.html" %}
+{% set active_page = "home" %}
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+    .listing {
+    font-size: 12px;
+    font-weight: bold;
+    margin: 2px;
+    width: 1000px;
+    height: 50px;
+    background: #fafafa;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+.listing:hover {
+  background-color: #ddd;
+  color: black;
+}
+</style>
+</head>
+{% block body %}
+<h2>Active Listings:</h2>
+<div class="listings">
+{% for listing in activeListing %}
+<form action="{{ url_for('viewListing', id=listing[1], seller=listing[0]) }}" method="post">
+
+    <input class= "listing" type="submit" name = listingID value="{{listing[3]}} | {{listing[4]}}">
+
+</form>
+{% endfor %}
+</div>
+<div class="listings">
+<h2>Inactive Listings:</h2>
+{% for listing in inactiveListing %}
+<form action="{{ url_for('viewListing', id=listing[1], seller=listing[0]) }}" method="post">
+
+    <input class= "listing" type="submit" name = listingID value="{{listing[3]}} | {{listing[4]}}">
+
+</form>
+{% endfor %}
+</div>
+<div class="listings">
+<h2>Sold Listings:</h2>
+{% for listing in soldListing %}
+<form action="{{ url_for('viewListing', id=listing[1], seller=listing[0]) }}" method="post">
+
+    <input class= "listing" type="submit" name = listingID value="{{listing[3]}} | {{listing[4]}}">
+
+</form>
+{% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,74 @@
+{% extends "layoutBidder.html" %}
+{% set active_page = "home" %}
+{% set active_category = selectedCategory %}
+
+{% block body %}
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+.main{
+    display: flex;
+}
+.category {
+    width: 500px;
+}
+.listing {
+    font-size: 12px;
+    font-weight: bold;
+    margin: 2px;
+    width: 1000px;
+    height: 50px;
+    background: #fafafa;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+.listing:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.button{
+            border: 0px;
+            background: white;
+        }
+        .button:hover{
+            background-color: #ddd;
+            color: black;
+        }
+        .active{
+            background-color: #04AA6D;
+            color: white;
+        }
+
+</style>
+</head>
+<div class = "main">
+    <div class="category">
+        <p>Choose Categories: </p>
+        {% macro render_category(category) %}
+        <form action="{{ url_for('homeBidderFilter') }}" method="post">
+        <input  class="button {{ 'active' if active_category == category.name else '' }}" type="submit" name="category" value = "{{category.name}}">
+        {% if category.children %}
+            <ul>
+            {% for child in category.children %}
+                {{ render_category(child) }}
+            {% endfor %}
+            </ul>
+        {% endif %}
+    </form>
+{% endmacro %}
+
+{{ render_category(data) }}
+    </div>
+    <div class="listings">
+        {% for listing in listings %}
+        <form action="{{ url_for('auctionListing', id=listing[1], seller=listing[0]) }}" method="post">
+
+            <input class= "listing" type="submit" name = listingID value="{{listing[2]}} | {{listing[3]}}">
+
+        </form>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

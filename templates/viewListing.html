@@ -1,0 +1,60 @@
+{% extends "layoutSeller.html" %}
+
+{% block body %}
+
+<h2>Listing Information:</h2>
+{% if listing[9] != 2 %}
+<form action="{{ url_for('viewListing', id=listing[1], seller=listing[0]) }}" method="post">
+        <label for="auctionTitle">Auction Title:</label>
+        <input type="text" id ="auctionTitle" name="auctionTitle" value="{{listing[3]}}" required> <br><br>
+        <label for="productName">Product Name:</label>
+        <input type="text" id ="productName" name="productName" value="{{listing[4]}}" required><br><br>
+        <label for="productDescription">Product Description:</label>
+        <input type="text" id = "productDescription" name="productDescription" value="{{listing[5]}}" required><br><br>
+
+        <label for="categories">Choose a product category:</label>
+        <select id="categories" name="categories">
+            {%for category in categoriesSet %}
+            <option value="{{category}}" {% if category==listing[2] %} selected="selected"{% endif %}>{{category}}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+        <label for="quantity">Quantity:</label>
+        <input type="text" id="quantity" name="quantity" value="{{listing[6]}}" required><br><br>
+        <label for="reservePrice">Reserve Price:</label>
+        <input type="text" id="reservePrice" name="reservePrice" value="{{listing[7][1:]}}" required><br><br>
+        <label for="maxBids">Max Bids:</label>
+        <input type="text" id="maxBids" name="maxBids" value="{{listing[8]}}" required><br><br>
+    <input type="submit" name="submit" value="Make Changes">
+    {% if listing[9] == 1 %}
+    <h3>Want to Unpublish your listing?</h3>
+    <label for="reasonOfRemoval">Reason:</label>
+    <input type="text" id="reasonOfRemoval" name="reasonOfRemoval" placeholder="Why do you want to unpublish your listing?" required>
+    <input type="submit" name="submit" value="Unpublish Listing">
+    {% endif %}
+    {% if listing[9] == 0 %}
+    <input type="submit" name="submit" value="Publish Listing">
+    {% endif %}
+</form>
+{% else %}
+<h1>{{listing[3]}} </h1>
+<h2>Product Information: </h2>
+<p>Product Name: {{listing[4]}} </p>
+<p>Product Description: {{listing[5]}} </p>
+<p>Quantity: {{listing[6]}} </p>
+<p>Reserve Price: {{listing[7]}} </p>
+<p>Status: Sold </p>
+{% endif %}
+
+{% if changesMade %}
+<p style="color: red">Changes successfully made!</p>
+{% endif %}
+{% if listingPublished %}
+<p style="color: red">The listing is successfully published!</p>
+{% endif %}
+
+{% if listingUnpublished %}
+<p style="color: red">The listing is successfully unpublished!</p>
+{% endif %}
+
+{% endblock %}

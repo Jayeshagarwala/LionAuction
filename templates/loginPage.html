@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<body>
+    <p>Enter your login details below:</p>
+    <form action="{{ url_for('loginPage') }}" method="post">
+        <input type="text" name="username" placeholder="Enter a username"><br><br>
+        <input type="password" name="password" placeholder="Enter a password"><br>
+        <p>Select your role: </p>
+        <input type="radio" name="role" id="bidder" value="bidders" checked>
+        <label for="bidder">Bidder</label>
+        <input type="radio" name="role" id="seller" value="sellers">
+        <label for="seller">Seller</label>
+        <input type="radio" name="role" id="helpdesk" value="helpdeskUsers">
+        <label for="helpdesk">HelpDesk Staff</label><br><br>
+        <input type="submit" value="Submit">
+    </form>
+    {% if error %}
+    <p style="color: red">Invalid Login Details! Please try again.</p>
+    {% endif %}
+
+</body>
+</html>

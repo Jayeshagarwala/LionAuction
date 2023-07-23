@@ -1,0 +1,39 @@
+{% extends "layoutBidder.html" %}
+
+{% block body %}
+<h1>Enter your payment information:</h1>
+<h2>Use Saved Credit Card:</h2>
+
+<form action="{{ url_for('paymentBidder') }}" method="post">
+    {% for creditCard in creditCards%}
+    <input type="radio" name="savedCreditCard" id="{{creditCard[1]}}" required>
+    <label for="{{creditCard[1]}}">{{creditCard[0]}}: xxxx-xxxx-xxxx-{{creditCard[1][-4:]}} | {{creditCard[2]}}/{{creditCard[3]}}</label>
+    {% endfor %}
+    <br><br>
+    <input type="submit" name="submit" value="Submit Saved Credit Card Details">
+</form>
+
+
+<h2>Enter Credit Card Details:</h2>
+    <form action="{{ url_for('paymentBidder') }}" method="post">
+    <p>Card Type: </p>
+        <input type="radio" name="creditCardType" id="master" value="Master" required>
+        <label for="master">Master</label>
+        <input type="radio" name="creditCardType" id="visa" value="Visa">
+        <label for="visa">Visa</label>
+        <input type="radio" name="creditCardType" id="discover" value="Discover">
+        <label for="discover">Discover</label><br><br>
+        <input type="radio" name="creditCardType" id="americanExpress" value="American Express">
+        <label for="americanExpress">American Express</label><br><br>
+
+        <input type="text" name="cardNumber" placeholder="Card Number" required> Format: (xxxx-xxxx-xxxx-xxxx)</input><br><br>
+        <input type="text" name="expireMonth" placeholder="Expire Month" required><br><br>
+        <input type="text" name="expireYear" placeholder="Expire Year" required><br><br>
+        <input type="password" name="securityCode" placeholder="CVV" required><br><br>
+
+        <input type="checkbox" id="saveCreditCard" name="saveCreditCard" value=True>
+        <label for="saveCreditCard">Save Credit Card Information for future use</label><br><br>
+
+        <input type="submit" name="submit" value="Submit Credit Card Details">
+    </form>
+{% endblock %}
